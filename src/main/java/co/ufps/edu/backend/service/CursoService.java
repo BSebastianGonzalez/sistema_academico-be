@@ -28,8 +28,12 @@ public class CursoService {
     private final ProfesorRepository profesorRepository;
 
     @Autowired
-    public CursoService(CursoRepository cursoRepository) {
+    public CursoService(CursoRepository cursoRepository, AsignaturaRepository asignaturaRepository, PeriodoAcademicoRepository periodoAcademicoRepository, SesionClaseRepository sesionClaseRepository, ProfesorRepository profesorRepository) {
         this.cursoRepository = cursoRepository;
+        this.asignaturaRepository = asignaturaRepository;
+        this.periodoAcademicoRepository = periodoAcademicoRepository;
+        this.sesionClaseRepository = sesionClaseRepository;
+        this.profesorRepository = profesorRepository;
     }
 
     @Transactional(readOnly = true)
