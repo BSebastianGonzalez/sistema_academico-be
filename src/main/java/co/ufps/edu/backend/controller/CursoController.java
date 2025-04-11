@@ -34,7 +34,7 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crear(@RequestBody Curso curso) {
+    public ResponseEntity<?> crearCurso(@RequestBody Curso curso) {
         try {
             Curso creado = cursoService.crearCurso(curso);
             return ResponseEntity.status(HttpStatus.CREATED).body(creado);
