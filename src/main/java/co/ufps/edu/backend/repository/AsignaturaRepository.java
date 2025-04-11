@@ -8,13 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AsignaturaRepository extends JpaRepository<Asignatura, Integer> {
+public interface AsignaturaRepository extends JpaRepository<Asignatura, Long> {
 
+    Optional<Asignatura> findByCodigo(String codigo);
+    List<Asignatura> findByCodigoContaining(String codigoParcial);
     List<Asignatura> findByNombreContainingIgnoreCase(String nombre);
-
-    Optional<Asignatura> findByNombreIgnoreCase(String nombre);
-
     List<Asignatura> findByCreditos(byte creditos);
-
     boolean existsByNombreIgnoreCase(String nombre);
 }
