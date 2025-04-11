@@ -1,9 +1,6 @@
 package co.ufps.edu.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +17,14 @@ public class ReporteUsoRecursos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "periodo_id")
     private PeriodoAcademico periodo;
+
+    @ManyToOne
+    @JoinColumn(name = "recurso_id")
     private RecursoAcademico recurso;
+
     private float tasaUtilizacion;
 
 
