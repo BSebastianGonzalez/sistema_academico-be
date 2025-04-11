@@ -1,4 +1,7 @@
 package co.ufps.edu.backend.repository;
 
-public class AdministradorRepository {
+import co.ufps.edu.backend.model.Administrador;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdministradorRepository extends JpaRepository<Administrador, Long> {
 }
