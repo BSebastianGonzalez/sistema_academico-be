@@ -3,6 +3,7 @@ package co.ufps.edu.backend.controller;
 import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.model.Curso;
 import co.ufps.edu.backend.service.CursoService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,12 +34,14 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<Curso> crearCurso(@RequestBody Curso curso) {
-        Asignatura nuevaAsignatura = asignaturaService.crearAsignatura(asignatura);
-        return asignaturaService.crearAsignatura(nuevaAsignatura);
-
-        Curso nuevoCurso = cursoService.crearCurso(curso);
-        return cursoService.crearCurso(nuevoCurso);
+    public ResponseEntity<?> crear(@RequestBody Curso curso) {
+        try {
+            Curso creado = cursoService.crearCurso(curso);
+            return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+        } catch (EntityNotFoundException | IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
 

@@ -3,11 +3,11 @@ package co.ufps.edu.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,17 +27,22 @@ public class Curso {
     private short cupoMaximo;
     private short cupoActual = 0;
 
-    @ManyToOne
-    @JoinColumn(name = "asignatura_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "asignatura", nullable = false)
     private Asignatura asignatura;
 
     @ManyToOne
     @JoinColumn(name = "clase_id", nullable = false)
     private SesionClase clase;
 
-    @ManyToOne
-    @JoinColumn(name = "profesor_id")
-    private Profesor profesor;
+    @ManyToMany
+    @JoinTable(
+            name = "curso_profesores",
+            joinColumns = @JoinColumn(name = "curso_id"),
+            inverseJoinColumns = @JoinColumn(name = "profesor_id")
+    )
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    private Set<Profesor> profesores = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "inscripcion_id")

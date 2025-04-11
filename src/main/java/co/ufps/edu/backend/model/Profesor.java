@@ -16,6 +16,8 @@ public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String nombre;
     private String departamento;
     private String especialidad;
     private byte añosExperiencia;
