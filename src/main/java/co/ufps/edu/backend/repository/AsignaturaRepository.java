@@ -15,4 +15,6 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, Long> {
     List<Asignatura> findByNombreContainingIgnoreCase(String nombre);
     List<Asignatura> findByCreditos(byte creditos);
     boolean existsByNombreIgnoreCase(String nombre);
+
+    void deleteByCodigo(String codigo);
 }

@@ -13,7 +13,9 @@ import java.util.List;
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
 
-    List<Curso> findByAsignaturaCodigo(Long asignaturaId);
-    List<Curso> findByPeriodoAcademicoId(Long periodoId);
-    List<Curso> findByProfesorId(Long profesorId);
+    List<Curso> findByAsignatura(Asignatura asignatura);
+    List<Curso> findByPeriodoAcademico(PeriodoAcademico periodoAcademico);
+    List<Curso> findByProfesores(Profesor profesor);
+    List<Curso> findByAsignaturaAndPeriodoAcademico(Asignatura asignatura, PeriodoAcademico periodoAcademico);
+    List<Curso> findByCupoActualLessThanCupoMaximo();
 }

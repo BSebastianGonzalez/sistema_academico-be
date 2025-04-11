@@ -51,23 +51,15 @@ public class AsignaturaController {
     // Crear Asignatura
     @PostMapping
     public Asignatura crearAsignatura(@RequestBody Asignatura asignatura) {
-        return asignaturaService.crearAsignatura(asignatura);
-    }
-
-
-    /*
-    @PostMapping
-    public ResponseEntity<Asignatura> createAsignatura(@RequestBody Asignatura asignatura) {
         Asignatura nuevaAsignatura = asignaturaService.crearAsignatura(asignatura);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaAsignatura);
+        return asignaturaService.crearAsignatura(nuevaAsignatura);
     }
-     */
 
     // Actualizar Asignatura
-    @PutMapping("/{id}")
-    public ResponseEntity<Asignatura> actualizarAsignatura(@PathVariable Long id, @RequestBody Asignatura asignaturaActualizada) {
+    @PutMapping("/{codigo}")
+    public ResponseEntity<Asignatura> actualizarAsignatura(@PathVariable String codigo, @RequestBody Asignatura asignaturaActualizada) {
         try {
-            Asignatura actualizarAsignatura = asignaturaService.actualizarAsignatura(id, asignaturaActualizada);
+            Asignatura actualizarAsignatura = asignaturaService.actualizarAsignatura(codigo, asignaturaActualizada);
             return ResponseEntity.ok(actualizarAsignatura);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -75,9 +67,9 @@ public class AsignaturaController {
     }
 
     // Eliminar Asignatura
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarAsignatura(@PathVariable Long id) {
-        asignaturaService.eliminarAsignatura(id);
+    @DeleteMapping("/{codigo}")
+    public ResponseEntity<Void> eliminarAsignatura(@PathVariable String codigo) {
+        asignaturaService.eliminarAsignatura(codigo);
         return ResponseEntity.notFound().build();
     }
 

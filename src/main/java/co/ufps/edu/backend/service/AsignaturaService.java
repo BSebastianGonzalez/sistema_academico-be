@@ -5,7 +5,6 @@ import co.ufps.edu.backend.repository.AsignaturaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,8 +48,8 @@ public class AsignaturaService {
     */
 
     //Actualizar Asignatura
-    public Asignatura actualizarAsignatura(Long id, Asignatura asignaturaDetails) {
-        return asignaturaRepository.findById(id).map(asignatura -> {
+    public Asignatura actualizarAsignatura(String codigo, Asignatura asignaturaDetails) {
+        return asignaturaRepository.findByCodigo(codigo).map(asignatura -> {
             asignatura.setCodigo(asignaturaDetails.getCodigo());
             asignatura.setNombre(asignaturaDetails.getNombre());
             asignatura.setDescripcion(asignaturaDetails.getDescripcion());
@@ -61,14 +60,15 @@ public class AsignaturaService {
 
     //Eliminar Asignatura
 
-
-    public void eliminarAsignatura(Long id) {
-         asignaturaRepository.deleteById(id);
+    public void eliminarAsignatura(String codigo) {
+        asignaturaRepository.deleteByCodigo(codigo);
     }
 
+
+
     /*
-    public boolean eliminarAsignatura(Long id) {
-        return asignaturaRepository.findById(id)
+    public boolean eliminarAsignatura(String codigo) {
+        return asignaturaRepository.findById(codigo)
                 .map(asignatura -> {
                     asignaturaRepository.delete(asignatura);
                     return true;
@@ -76,6 +76,7 @@ public class AsignaturaService {
                 .orElse(false);
     }
      */
+
 
 }
 
