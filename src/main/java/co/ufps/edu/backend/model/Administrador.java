@@ -18,7 +18,7 @@ public class Administrador {
     private byte nivelAcceso;
 
     @OneToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id")
     private Usuario usuario;
 }
 

@@ -13,10 +13,11 @@ public class Permiso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nombre;
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "id_rol")
+    @JoinColumn(name = "id")
     private Rol rol;
 }
