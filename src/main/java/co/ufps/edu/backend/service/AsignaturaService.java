@@ -28,7 +28,7 @@ public class AsignaturaService {
     }
 
     //Obtener Asignatura por Codigo
-    public Optional<Asignatura> obtenerAsignaturaByCodigo(String codigo) {
+    public Optional<Asignatura> obtenerAsignaturaPorCodigo(String codigo) {
         return asignaturaRepository.findByCodigo(codigo);
     }
 
