@@ -20,20 +20,12 @@ public class Asignatura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     private String codigo;
 
-    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
-
-    @Lob
     private String descripcion;
-
-    @Positive(message = "Los créditos deben ser un valor positivo")
     private byte creditos;
-
-    @ManyToOne
-    @JoinColumn(name = "id_asignatura")
-    private Asignatura esPrerrequisito;
 
 
 }
