@@ -13,17 +13,7 @@ import java.util.List;
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
 
-    List<Curso> findByAsignatura(Asignatura asignatura);
-
-    List<Curso> findByPeriodoAcademico(PeriodoAcademico periodoAcademico);
-
-    List<Curso> findByProfesor(Profesor profesor);
-
-    List<Curso> findByPeriodoAcademicoAndAsignatura(PeriodoAcademico periodoAcademico, Asignatura asignatura);
-
-    @Query("SELECT c FROM Curso c WHERE c.cupoActual < c.cupoMaximo")
-    List<Curso> findCursosConCupoDisponible();
-
-    @Query("SELECT c FROM Curso c WHERE c.periodoAcademico.activo = true")
-    List<Curso> findCursosEnPeriodoActivo();
+    List<Curso> findByAsignaturaCodigo(Long asignaturaId);
+    List<Curso> findByPeriodoAcademicoId(Long periodoId);
+    List<Curso> findByProfesorId(Long profesorId);
 }

@@ -2,7 +2,9 @@ package co.ufps.edu.backend.controller;
 
 import co.ufps.edu.backend.model.Curso;
 import co.ufps.edu.backend.service.CursoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,7 @@ public class CursoController {
     //
     @GetMapping
     public List<Curso> obtenerTodosLosCursos() {
-        return cursoService.obtenerTodosLosCursos();
+        return cursoService.listarTodosCursos();
     }
 
     @GetMapping("/{id}")
@@ -30,14 +32,16 @@ public class CursoController {
     }
 
     @PostMapping
-    public Curso createCourse(@RequestBody Curso curso) {
-        return cursoService.crearCurso(curso);
+    public ResponseEntity<Curso> crearCurso(@Valid @RequestBody Curso curso) {
+        Curso nuevoCurso = cursoService.crearCurso(curso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCurso);
     }
 
+
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Curso>> actualizarCurso(@PathVariable Long id, @RequestBody Curso cursoActualizado) {
+    public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @Valid @RequestBody Curso cursoDetails) {
         try {
-            Optional<Curso> actualizarCurso = cursoService.actualizarCurso(id, cursoActualizado);
+            Curso actualizarCurso = cursoService.actualizarCurso(id, cursoDetails);
             return ResponseEntity.ok(actualizarCurso);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
