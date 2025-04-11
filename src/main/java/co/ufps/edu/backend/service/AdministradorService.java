@@ -19,23 +19,24 @@ public class AdministradorService {
         return administradorRepository.findAll();
     }
 
-    public Optional<Administrador> getUserById(Long id) {
+    public Optional<Administrador> getAdministradorById(Long id) {
         return administradorRepository.findById(id);
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public Administrador createAdministrador(Administrador administrador) {
+        return administradorRepository.save(administrador);
     }
 
-    public User updateUser(Long id, User userDetails) {
-        return userRepository.findById(id).map(user -> {
-            user.setName(userDetails.getName());
-            user.setEmail(userDetails.getEmail());
-            return userRepository.save(user);
-        }).orElseThrow(() -> new RuntimeException("User not found"));
+    public Administrador updateAdministrador(Long id, Administrador administradorDetails) {
+        return administradorRepository.findById(id).map(administrador -> {
+            administrador.setDepartamento(administradorDetails.getDepartamento());
+            administrador.setNivelAcceso(administradorDetails.getNivelAcceso());
+            administrador.setUsuario(administradorDetails.getUsuario());
+            return administradorRepository.save(administrador);
+        }).orElseThrow(() -> new RuntimeException("Administrador no encontrado"));
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteAdministrador(Long id) {
+        administradorRepository.deleteById(id);
     }
 }
