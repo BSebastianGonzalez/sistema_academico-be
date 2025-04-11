@@ -2,6 +2,7 @@ package co.ufps.edu.backend.service;
 
 import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.repository.AsignaturaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,15 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AsignaturaService {
 
     @Autowired
     private final AsignaturaRepository asignaturaRepository;
-
-    @Autowired
-    public AsignaturaService(AsignaturaRepository asignaturaRepository) {
-        this.asignaturaRepository = asignaturaRepository;
-    }
 
     //Listar Asignaturas
     public List<Asignatura> obtenerTodasLasAsignaturas() {
@@ -49,21 +46,15 @@ public class AsignaturaService {
         return asignaturaRepository.save(asignatura);
     }
 
-    //Actualizar Asignatura
-    public Asignatura actualizarAsignatura(int codigo, Asignatura asignaturaActualizada) {
-        return asignaturaRepository.findById(codigo)
-                .map(asignaturaExistente -> {
-                    // Verificar si el nombre ha cambiado y si el nuevo nombre ya existe
-                    if (!asignaturaExistente.getNombre().equalsIgnoreCase(asignaturaActualizada.getNombre()) &&
-                            asignaturaRepository.existsByNombreIgnoreCase(asignaturaActualizada.getNombre())) {
-                        throw new IllegalArgumentException("Ya existe una asignatura con el nombre: " + asignaturaActualizada.getNombre());
-                    }
 
-                    asignaturaExistente.setNombre(asignaturaActualizada.getNombre());
-                    asignaturaExistente.setDescripcion(asignaturaActualizada.getDescripcion());
-                    asignaturaExistente.setCreditos(asignaturaActualizada.getCreditos());
-                    return asignaturaRepository.save(asignaturaExistente);
-                }).orElseThrow(() -> new RuntimeException("Asignatura no encontrada"));
+    //Actualizar Asignatura
+    public Asignatura actualizarAsignatura(int codigo, Asignatura asignaturaDetails) {
+        return asignaturaRepository.findById(codigo).map(asignatura -> {
+            asignatura.setNombre(asignaturaDetails.getNombre());
+            asignatura.setDescripcion(asignaturaDetails.getDescripcion());
+            asignatura.setCreditos(asignaturaDetails.getCreditos());
+            return asignaturaRepository.save(asignatura);
+        }).orElseThrow(() -> new RuntimeException("Asignatura no encontrada"));
     }
 
     //Eliminar Asignatura
