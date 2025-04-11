@@ -61,12 +61,12 @@ public class AsignaturaService {
 
     //Eliminar Asignatura
 
-    /*
+
     public void eliminarAsignatura(Long id) {
          asignaturaRepository.deleteById(id);
     }
-     */
 
+    /*
     public boolean eliminarAsignatura(Long id) {
         return asignaturaRepository.findById(id)
                 .map(asignatura -> {
@@ -75,7 +75,7 @@ public class AsignaturaService {
                 })
                 .orElse(false);
     }
-
+     */
 
 }
 
