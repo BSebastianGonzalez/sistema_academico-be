@@ -54,13 +54,16 @@ public class CursoService {
 
     public Curso crearCurso(Curso curso) {
         // 1. Asignatura por código
+
         String codigo = curso.getAsignatura().getCodigo();
+
         Asignatura asignatura = asignaturaRepository.findByCodigo(codigo)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Asignatura " + codigo + " no encontrada"));
 
         // 2. PeriodoAcademico por nombre
-        String nombrePeriodo = curso.getPeriodoAcademico();
+        String nombrePeriodo = curso.getPeriodoAcademico().getNombre();
+
         PeriodoAcademico periodo = periodoAcademicoRepository.findByNombre(nombrePeriodo)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "PeriodoAcademico " + nombrePeriodo + " no encontrado"));
@@ -76,7 +79,7 @@ public class CursoService {
 
         // 4. Setear relaciones y valores
         curso.setAsignatura(asignatura);
-        curso.setPeriodoAcademico(periodo.getNombre());
+        curso.setPeriodoAcademico(periodo);
         curso.setCupoActual((short) 0);
 
         curso.getProfesores().clear();
@@ -110,7 +113,7 @@ public class CursoService {
             curso.setCupoActual(cursoActualizado.getCupoActual());
             curso.setAsignatura(cursoActualizado.getAsignatura());
             curso.setClase(cursoActualizado.getClase());
-            curso.setProfesor(cursoActualizado.getProfesor());
+            curso.setProfesores(cursoActualizado.getProfesores());
             return cursoRepository.save(curso);
         }).orElseThrow(() -> new RuntimeException("Curso no encontrado"));
     }
