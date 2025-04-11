@@ -32,11 +32,7 @@ public class Asignatura {
     private byte creditos;
 
     @ManyToOne
-    @JoinColumn(name = "prerrequisito_id")
-    private Asignatura prerrequisito;
-
-    @ManyToOne
-    @JoinColumn(name = "es_prerrequisito_id")
+    @JoinColumn(name = "id_asignatura")
     private Asignatura esPrerrequisito;
 
 
