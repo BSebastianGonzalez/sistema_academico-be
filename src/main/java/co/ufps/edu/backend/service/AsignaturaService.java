@@ -32,13 +32,6 @@ public class AsignaturaService {
         return asignaturaRepository.findByCodigo(codigo);
     }
 
-    /*
-    //Opcional, Buscar Asignatura por Nombre
-    public List<Asignatura> buscarAsignaturasPorNombre(String nombre) {
-        return asignaturaRepository.findByNombreContainingIgnoreCase(nombre);
-    }
-     */
-
     //Crear Asignatura
     public Asignatura createAsignatura(Asignatura asignatura) {
         // Verificar que no exista otra asignatura con el mismo código
