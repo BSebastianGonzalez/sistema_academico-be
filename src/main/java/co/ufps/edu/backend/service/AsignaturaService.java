@@ -33,7 +33,7 @@ public class AsignaturaService {
     }
 
     //Crear Asignatura
-    public Asignatura createAsignatura(Asignatura asignatura) {
+    public Asignatura crearAsignatura(Asignatura asignatura) {
         // Verificar que no exista otra asignatura con el mismo código
         if (asignatura.getCodigo() != null && asignaturaRepository.findByCodigo(asignatura.getCodigo()).isPresent()) {
             throw new IllegalArgumentException("Ya existe una asignatura con el código " + asignatura.getCodigo());
