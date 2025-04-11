@@ -1,5 +1,6 @@
 package co.ufps.edu.backend.controller;
 
+import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.model.Curso;
 import co.ufps.edu.backend.service.CursoService;
 import jakarta.validation.Valid;
@@ -32,9 +33,12 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<Curso> crearCurso(@Valid @RequestBody Curso curso) {
+    public ResponseEntity<Curso> crearCurso(@RequestBody Curso curso) {
+        Asignatura nuevaAsignatura = asignaturaService.crearAsignatura(asignatura);
+        return asignaturaService.crearAsignatura(nuevaAsignatura);
+
         Curso nuevoCurso = cursoService.crearCurso(curso);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCurso);
+        return cursoService.crearCurso(nuevoCurso);
     }
 
 

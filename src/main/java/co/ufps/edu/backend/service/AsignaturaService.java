@@ -5,7 +5,6 @@ import co.ufps.edu.backend.repository.AsignaturaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,34 +21,36 @@ public class AsignaturaService {
         return asignaturaRepository.findAll();
     }
 
-    //Obtener Asignatura
-    public Optional<Asignatura> obtenerAsignaturaPorCodigo(int codigo) {
-        return asignaturaRepository.findById(codigo);
+    //Obtener Asignatura por Id
+    public Optional<Asignatura> obtenerAsignaturaPorId(Long id) {
+        return asignaturaRepository.findById(id);
     }
 
-    //Opcional
-    public List<Asignatura> buscarAsignaturasPorNombre(String nombre) {
-        return asignaturaRepository.findByNombreContainingIgnoreCase(nombre);
-    }
-
-    //Opcional
-    public List<Asignatura> buscarAsignaturasPorCreditos(byte creditos) {
-        return asignaturaRepository.findByCreditos(creditos);
+    //Obtener Asignatura por Codigo
+    public Optional<Asignatura> obtenerAsignaturaPorCodigo(String codigo) {
+        return asignaturaRepository.findByCodigo(codigo);
     }
 
     //Crear Asignatura
     public Asignatura crearAsignatura(Asignatura asignatura) {
-        // Validar que no exista otra asignatura con el mismo nombre
-        if (asignaturaRepository.existsByNombreIgnoreCase(asignatura.getNombre())) {
-            throw new IllegalArgumentException("Ya existe una asignatura con el nombre: " + asignatura.getNombre());
+        // Verificar que no exista otra asignatura con el mismo código
+        if (asignatura.getCodigo() != null && asignaturaRepository.findByCodigo(asignatura.getCodigo()).isPresent()) {
+            throw new IllegalArgumentException("Ya existe una asignatura con el código " + asignatura.getCodigo());
         }
+
         return asignaturaRepository.save(asignatura);
     }
 
+    /*
+    public Asignatura crearAsignatura(Asignatura asignatura) {
+        return asignaturaRepository.save(asignatura);
+    }
+    */
 
     //Actualizar Asignatura
-    public Asignatura actualizarAsignatura(int codigo, Asignatura asignaturaDetails) {
-        return asignaturaRepository.findById(codigo).map(asignatura -> {
+    public Asignatura actualizarAsignatura(String codigo, Asignatura asignaturaDetails) {
+        return asignaturaRepository.findByCodigo(codigo).map(asignatura -> {
+            asignatura.setCodigo(asignaturaDetails.getCodigo());
             asignatura.setNombre(asignaturaDetails.getNombre());
             asignatura.setDescripcion(asignaturaDetails.getDescripcion());
             asignatura.setCreditos(asignaturaDetails.getCreditos());
@@ -58,8 +59,24 @@ public class AsignaturaService {
     }
 
     //Eliminar Asignatura
-    public void eliminarAsignatura(int codigo) {
-        asignaturaRepository.deleteById(codigo);
+
+    public void eliminarAsignatura(String codigo) {
+        asignaturaRepository.deleteByCodigo(codigo);
     }
+
+
+
+    /*
+    public boolean eliminarAsignatura(String codigo) {
+        return asignaturaRepository.findById(codigo)
+                .map(asignatura -> {
+                    asignaturaRepository.delete(asignatura);
+                    return true;
+                })
+                .orElse(false);
+    }
+     */
+
+
 }
 
