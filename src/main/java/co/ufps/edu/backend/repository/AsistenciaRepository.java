@@ -1,4 +1,7 @@
 package co.ufps.edu.backend.repository;
 
-public class AsistenciaRepository {
+import co.ufps.edu.backend.model.Asistencia;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
 }

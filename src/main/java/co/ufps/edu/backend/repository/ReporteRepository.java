@@ -1,4 +1,7 @@
 package co.ufps.edu.backend.repository;
 
-public class ReporteRepository {
+import co.ufps.edu.backend.model.Reporte;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReporteRepository extends JpaRepository<Reporte, Long> {
 }
