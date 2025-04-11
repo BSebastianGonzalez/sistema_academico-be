@@ -19,12 +19,12 @@ public class Estudiante {
     @Id
     private int id;
 
-    private String carrera;
+    private byte codigoCarrera;
     private byte semestre;
     private boolean estado;
 
     @OneToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id")
     private Usuario usuario;
 
 }

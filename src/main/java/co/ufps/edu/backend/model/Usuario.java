@@ -29,7 +29,7 @@ public class Usuario {
     private long telefono;
 
     @ManyToOne
-    @JoinColumn(name = "id_rol")
+    @JoinColumn(name = "id")
     private Rol rol;
 
     private Date ultimoAcceso;
