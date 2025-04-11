@@ -22,34 +22,43 @@ public class AsignaturaService {
         return asignaturaRepository.findAll();
     }
 
-    //Obtener Asignatura
-    public Optional<Asignatura> obtenerAsignaturaPorCodigo(int codigo) {
-        return asignaturaRepository.findById(codigo);
+    //Obtener Asignatura por Id
+    public Optional<Asignatura> obtenerAsignaturaPorId(Long id) {
+        return asignaturaRepository.findById(id);
     }
 
-    //Opcional
+    //Obtener Asignatura por Codigo
+    public Optional<Asignatura> obtenerAsignaturaByCodigo(String codigo) {
+        return asignaturaRepository.findByCodigo(codigo);
+    }
+
+    /*
+    //Opcional, Buscar Asignatura por Nombre
     public List<Asignatura> buscarAsignaturasPorNombre(String nombre) {
         return asignaturaRepository.findByNombreContainingIgnoreCase(nombre);
     }
-
-    //Opcional
-    public List<Asignatura> buscarAsignaturasPorCreditos(byte creditos) {
-        return asignaturaRepository.findByCreditos(creditos);
-    }
+     */
 
     //Crear Asignatura
-    public Asignatura crearAsignatura(Asignatura asignatura) {
-        // Validar que no exista otra asignatura con el mismo nombre
-        if (asignaturaRepository.existsByNombreIgnoreCase(asignatura.getNombre())) {
-            throw new IllegalArgumentException("Ya existe una asignatura con el nombre: " + asignatura.getNombre());
+    public Asignatura createAsignatura(Asignatura asignatura) {
+        // Verificar que no exista otra asignatura con el mismo código
+        if (asignatura.getCodigo() != null && asignaturaRepository.findByCodigo(asignatura.getCodigo()).isPresent()) {
+            throw new IllegalArgumentException("Ya existe una asignatura con el código " + asignatura.getCodigo());
         }
+
         return asignaturaRepository.save(asignatura);
     }
 
+    /*
+    public Asignatura crearAsignatura(Asignatura asignatura) {
+        return asignaturaRepository.save(asignatura);
+    }
+    */
 
     //Actualizar Asignatura
-    public Asignatura actualizarAsignatura(int codigo, Asignatura asignaturaDetails) {
-        return asignaturaRepository.findById(codigo).map(asignatura -> {
+    public Asignatura actualizarAsignatura(Long id, Asignatura asignaturaDetails) {
+        return asignaturaRepository.findById(id).map(asignatura -> {
+            asignatura.setCodigo(asignaturaDetails.getCodigo());
             asignatura.setNombre(asignaturaDetails.getNombre());
             asignatura.setDescripcion(asignaturaDetails.getDescripcion());
             asignatura.setCreditos(asignaturaDetails.getCreditos());
@@ -58,8 +67,22 @@ public class AsignaturaService {
     }
 
     //Eliminar Asignatura
-    public void eliminarAsignatura(int codigo) {
-        asignaturaRepository.deleteById(codigo);
+
+    /*
+    public void eliminarAsignatura(Long id) {
+         asignaturaRepository.deleteById(id);
     }
+     */
+
+    public boolean eliminarAsignatura(Long id) {
+        return asignaturaRepository.findById(id)
+                .map(asignatura -> {
+                    asignaturaRepository.delete(asignatura);
+                    return true;
+                })
+                .orElse(false);
+    }
+
+
 }
 
