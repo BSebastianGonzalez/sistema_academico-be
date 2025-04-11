@@ -1,63 +1,31 @@
 package co.ufps.edu.backend.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReporteAsistencia {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_curso")
     private Curso curso;
+
+    @ManyToOne
+    @JoinColumn(name = "id_periodo")
     private PeriodoAcademico periodo;
+
     private float porcentajeAsistenciaPromedio;
 
-    public ReporteAsistencia() {
-    }
 
-    public ReporteAsistencia(Curso curso, PeriodoAcademico periodo, float porcentajeAsistenciaPromedio) {
-        this.curso = curso;
-        this.periodo = periodo;
-        this.porcentajeAsistenciaPromedio = porcentajeAsistenciaPromedio;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public PeriodoAcademico getPeriodo() {
-        return periodo;
-    }
-
-    public float getPorcentajeAsistenciaPromedio() {
-        return porcentajeAsistenciaPromedio;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public void setPeriodo(PeriodoAcademico periodo) {
-        this.periodo = periodo;
-    }
-
-    public void setPorcentajeAsistenciaPromedio(float porcentajeAsistenciaPromedio) {
-        this.porcentajeAsistenciaPromedio = porcentajeAsistenciaPromedio;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        ReporteAsistencia that = (ReporteAsistencia) o;
-        return Float.compare(porcentajeAsistenciaPromedio, that.porcentajeAsistenciaPromedio) == 0 && Objects.equals(curso, that.curso) && Objects.equals(periodo, that.periodo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(curso, periodo, porcentajeAsistenciaPromedio);
-    }
-
-    @Override
-    public String toString() {
-        return "model.ReporteAsistencia{" +
-                "curso=" + curso +
-                ", periodo=" + periodo +
-                ", porcentajeAsistenciaPromedio=" + porcentajeAsistenciaPromedio +
-                '}';
-    }
 }
