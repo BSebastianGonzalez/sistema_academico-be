@@ -1,63 +1,24 @@
 package co.ufps.edu.backend.model;
 
-import java.util.Objects;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Administrador {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String departamento;
     private byte nivelAcceso;
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
-
-    public Administrador() {
-    }
-
-    public Administrador(String departamento, byte nivelAcceso, Usuario usuario) {
-        this.departamento = departamento;
-        this.nivelAcceso = nivelAcceso;
-        this.usuario = usuario;
-    }
-
-    public String getDepartamento() {
-        return departamento;
-    }
-
-    public byte getNivelAcceso() {
-        return nivelAcceso;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
-    }
-
-    public void setNivelAcceso(byte nivelAcceso) {
-        this.nivelAcceso = nivelAcceso;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Administrador that = (Administrador) o;
-        return nivelAcceso == that.nivelAcceso && Objects.equals(departamento, that.departamento) && Objects.equals(usuario, that.usuario);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(departamento, nivelAcceso, usuario);
-    }
-
-    @Override
-    public String toString() {
-        return "model.Administrador{" +
-                "departamento='" + departamento + '\'' +
-                ", nivelAcceso=" + nivelAcceso +
-                ", usuario=" + usuario +
-                '}';
-    }
 }
+
