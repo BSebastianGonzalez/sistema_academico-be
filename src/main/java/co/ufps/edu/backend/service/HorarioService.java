@@ -38,7 +38,7 @@ public class HorarioService {
         horario.setAula(aula);
 
         // Validación simple de solapamiento
-        List<Horario> existentes = horarioRepository.findByAulaAndDia(aula.getNombre(), horario.getDia());
+        List<Horario> existentes = horarioRepository.findByAulaAndDia(aula, horario.getDia());
         for (Horario h : existentes) {
             if (h.getHoraInicio().isBefore(horario.getHoraFin()) && horario.getHoraInicio().isBefore(h.getHoraFin())) {
                 throw new IllegalArgumentException("Conflicto de horario detectado.");
