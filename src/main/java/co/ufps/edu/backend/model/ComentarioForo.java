@@ -6,31 +6,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mensaje {
+public class ComentarioForo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String asunto;
+    @Column(length = 2000)
     private String contenido;
-    private LocalDateTime fechaEnvio;
-    private boolean leido;
+
+    private LocalDateTime fechaPublicacion;
 
     @ManyToOne
-    @JoinColumn(name = "id_emisor")
-    private Usuario emisor;
+    @JoinColumn(name = "id_foro")
+    private Foro foro;
 
     @ManyToOne
-    @JoinColumn(name = "id_receptor")
-    private Usuario receptor;
-
-
+    @JoinColumn(name = "id_autor")
+    private Usuario autor;
 }

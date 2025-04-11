@@ -5,27 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.Objects;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestablecimientoContrasenia {
+public class Foro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String titulo;
+
+    @Column(length = 3000)
+    private String descripcion;
+
+    private LocalDateTime fechaCreacion;
+
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    private String token;
-    private Date fechaCreacion;
-    private Date fechaExpiracion;
-    private boolean utilizado;
-
-
+    @JoinColumn(name = "id_creador")
+    private Usuario creador;
 }

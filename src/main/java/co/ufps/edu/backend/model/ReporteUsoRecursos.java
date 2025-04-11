@@ -1,63 +1,31 @@
 package co.ufps.edu.backend.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReporteUsoRecursos {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "periodo_id")
     private PeriodoAcademico periodo;
+
+    @ManyToOne
+    @JoinColumn(name = "recurso_id")
     private RecursoAcademico recurso;
+
     private float tasaUtilizacion;
 
-    public ReporteUsoRecursos() {
-    }
 
-    public ReporteUsoRecursos(PeriodoAcademico periodo, RecursoAcademico recurso, float tasaUtilizacion) {
-        this.periodo = periodo;
-        this.recurso = recurso;
-        this.tasaUtilizacion = tasaUtilizacion;
-    }
-
-    public PeriodoAcademico getPeriodo() {
-        return periodo;
-    }
-
-    public RecursoAcademico getRecurso() {
-        return recurso;
-    }
-
-    public float getTasaUtilizacion() {
-        return tasaUtilizacion;
-    }
-
-    public void setPeriodo(PeriodoAcademico periodo) {
-        this.periodo = periodo;
-    }
-
-    public void setRecurso(RecursoAcademico recurso) {
-        this.recurso = recurso;
-    }
-
-    public void setTasaUtilizacion(float tasaUtilizacion) {
-        this.tasaUtilizacion = tasaUtilizacion;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        ReporteUsoRecursos that = (ReporteUsoRecursos) o;
-        return Float.compare(tasaUtilizacion, that.tasaUtilizacion) == 0 && Objects.equals(periodo, that.periodo) && Objects.equals(recurso, that.recurso);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(periodo, recurso, tasaUtilizacion);
-    }
-
-    @Override
-    public String toString() {
-        return "model.ReporteUsoRecursos{" +
-                "periodo=" + periodo +
-                ", recurso=" + recurso +
-                ", tasaUtilizacion=" + tasaUtilizacion +
-                '}';
-    }
 }
