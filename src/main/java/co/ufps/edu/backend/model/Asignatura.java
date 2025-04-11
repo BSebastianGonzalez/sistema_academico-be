@@ -31,4 +31,13 @@ public class Asignatura {
     @Positive(message = "Los créditos deben ser un valor positivo")
     private byte creditos;
 
+    @ManyToOne
+    @JoinColumn(name = "prerrequisito_id")
+    private Asignatura prerrequisito;
+
+    @ManyToOne
+    @JoinColumn(name = "es_prerrequisito_id")
+    private Asignatura esPrerrequisito;
+
+
 }
