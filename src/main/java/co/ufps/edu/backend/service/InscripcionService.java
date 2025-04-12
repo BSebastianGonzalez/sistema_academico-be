@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class InscripcionService {
     @Autowired
-    private final InscripcionRepository inscripcionRepository;
+    private InscripcionRepository inscripcionRepository;
 
     public List<Inscripcion> getAllInscripciones {
         return inscripcionRepository.findAll();
