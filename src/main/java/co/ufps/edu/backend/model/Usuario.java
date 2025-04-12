@@ -19,7 +19,6 @@ public class Usuario {
     private Long id;
 
     private String cedula;
-
     private String nombre;
     private String apellido;
     private String correo;
@@ -29,11 +28,10 @@ public class Usuario {
     private long telefono;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_rol")
     private Rol rol;
 
     private Date ultimoAcceso;
     private boolean activo;
-
 
 }
