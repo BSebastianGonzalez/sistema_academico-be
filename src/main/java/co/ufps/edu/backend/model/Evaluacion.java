@@ -36,5 +36,4 @@ public class Evaluacion {
     @JoinColumn(name = "calificacion_id")
     private Calificacion calificacion;
 
-
 }
