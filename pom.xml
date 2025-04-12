@@ -76,7 +76,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.4.4</version>
 		</dependency>
-
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
