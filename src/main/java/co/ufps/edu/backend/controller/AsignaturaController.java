@@ -2,10 +2,8 @@ package co.ufps.edu.backend.controller;
 
 
 import co.ufps.edu.backend.model.Asignatura;
-import co.ufps.edu.backend.repository.AsignaturaRepository;
 import co.ufps.edu.backend.service.AsignaturaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +33,7 @@ public class AsignaturaController {
     //Obtener Asignatura por Codigo
     @GetMapping("/codigo/{codigo}")
     public ResponseEntity<Asignatura> obtenerAsignaturaPorCodigo(@PathVariable String codigo) {
-        return asignaturaService.obtenerAsignaturaPorCodigo(codigo)
+        return asignaturaService.getAsiganturaByCodigo(codigo)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -69,7 +67,7 @@ public class AsignaturaController {
     // Eliminar Asignatura
     @DeleteMapping("/{codigo}")
     public ResponseEntity<Void> eliminarAsignatura(@PathVariable String codigo) {
-        asignaturaService.eliminarAsignatura(codigo);
+        asignaturaService.deleteAsignatura(codigo);
         return ResponseEntity.notFound().build();
     }
 
