@@ -2,10 +2,8 @@ package co.ufps.edu.backend.controller;
 
 
 import co.ufps.edu.backend.model.Asignatura;
-import co.ufps.edu.backend.repository.AsignaturaRepository;
 import co.ufps.edu.backend.service.AsignaturaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
