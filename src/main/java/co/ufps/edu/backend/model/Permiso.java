@@ -18,6 +18,6 @@ public class Permiso {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_rol")
     private Rol rol;
 }

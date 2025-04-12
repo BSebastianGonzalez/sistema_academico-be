@@ -24,7 +24,7 @@ public class Estudiante {
     private boolean estado;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
 }
