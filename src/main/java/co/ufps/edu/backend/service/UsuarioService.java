@@ -5,6 +5,7 @@ import co.ufps.edu.backend.model.Usuario;
 import co.ufps.edu.backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
@@ -44,6 +46,17 @@ public class UsuarioService {
 
     public void deleteUsuario(Long id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public Usuario validarCredenciales(String correo, String contrasenia) {
+        return usuarioRepository.findByCorreoAndActivoTrue(correo)
+                .filter(u -> passwordEncoder.matches(contrasenia, u.getContrasenia()))
+                .orElse(null);
+    }
+
+    public Usuario guardarUsuarioConContrasenaCifrada(Usuario usuario) {
+        usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+        return usuarioRepository.save(usuario);
     }
 }
 
