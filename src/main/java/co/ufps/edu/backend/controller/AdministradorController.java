@@ -1,5 +1,8 @@
 package co.ufps.edu.backend.controller;
 
+import co.ufps.edu.backend.dto.AdminLoginRequestDTO;
+import co.ufps.edu.backend.dto.AdminLoginResponseDTO;
+import co.ufps.edu.backend.dto.AdministradorDTO;
 import co.ufps.edu.backend.model.Administrador;
 import co.ufps.edu.backend.model.Estudiante;
 import co.ufps.edu.backend.service.AdministradorService;
@@ -29,7 +32,7 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public Administrador createAdministrador(@RequestBody Administrador administrador) {
+    public Administrador createAdministrador(@RequestBody AdministradorDTO administrador) {
         return administradorService.createAdministrador(administrador);
     }
 
@@ -48,4 +51,21 @@ public class AdministradorController {
         administradorService.deleteAdministrador(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/desactivar/{id}")
+    public ResponseEntity<Administrador> desactivarAdministrador(@PathVariable Long id) {
+        try {
+            Administrador updatedAdministrador = administradorService.desactivarAdministrador(id);
+            return ResponseEntity.ok(updatedAdministrador);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AdminLoginResponseDTO> login(@RequestBody AdminLoginRequestDTO request) {
+        AdminLoginResponseDTO response = administradorService.login(request.getCorreo(), request.getContrasenia());
+        return ResponseEntity.ok(response);
+    }
+
 }

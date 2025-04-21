@@ -1,5 +1,6 @@
 package co.ufps.edu.backend.controller;
 
+import co.ufps.edu.backend.dto.UsuarioDTO;
 import co.ufps.edu.backend.model.Usuario;
 import co.ufps.edu.backend.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
+    public Usuario createUsuario(@RequestBody UsuarioDTO usuario) {
         return usuarioService.createUsuario(usuario);
     }
 
