@@ -17,15 +17,16 @@ import java.util.Objects;
 public class Asignatura {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(unique = true)
-    private String codigo;
+    private Long id; //La id es el codigo de la materia como tal. Para hacerlo toca que sea personalizada.
+                        // 1155401 es uno por ejemplo
 
     private String nombre;
     private String descripcion;
     private byte creditos;
+    private byte semestre;
 
+    @ManyToOne
+    @JoinColumn(name = "id_carrera")
+    private Carrera carrera;
 
 }
