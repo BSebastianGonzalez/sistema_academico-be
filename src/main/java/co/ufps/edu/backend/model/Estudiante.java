@@ -1,13 +1,12 @@
 package co.ufps.edu.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -17,14 +16,24 @@ import java.util.Objects;
 public class Estudiante {
 
     @Id
-    private int id;
+    private Long id;
 
-    private byte codigoCarrera;
     private byte semestre;
+    private short creditos;
     private boolean estado;
+    private String correo;
+    private String contrasenia;
+    private Date ultimoAcceso;
+    private boolean activo;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    @JsonManagedReference
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_carrera")
+    @JsonManagedReference
+    private Carrera carrera;
 
 }

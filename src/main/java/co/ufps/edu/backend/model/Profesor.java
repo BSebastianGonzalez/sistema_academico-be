@@ -1,10 +1,12 @@
 package co.ufps.edu.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,16 +16,21 @@ import java.util.Objects;
 public class Profesor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
-    private String departamento;
-    private String especialidad;
-    private byte añosExperiencia;
-    private String gradoAcademico;
+    private String correo;
+    private String contrasenia;
+    private Date ultimoAcceso;
+    private boolean activo;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
+    @JsonManagedReference
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_carrera")
+    @JsonManagedReference
+    private Carrera carrera;
 }
