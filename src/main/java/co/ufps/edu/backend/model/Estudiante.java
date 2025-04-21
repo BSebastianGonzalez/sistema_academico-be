@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,14 +19,12 @@ public class Estudiante {
 
     @Id
     private Long id;
-
     private byte semestre;
-    private short creditos;
-    private boolean estado;
+    private int creditos;
+    private boolean activo;
     private String correo;
     private String contrasenia;
     private Date ultimoAcceso;
-    private boolean activo;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
@@ -35,5 +35,13 @@ public class Estudiante {
     @JoinColumn(name = "id_carrera")
     @JsonManagedReference
     private Carrera carrera;
+
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Inscripcion> inscripciones = new ArrayList<>();
+
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Calificacion> calificaciones = new ArrayList<>();
 
 }

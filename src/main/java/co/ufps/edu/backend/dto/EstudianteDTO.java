@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EstudianteDTO {
 
-    private String correo;
+    private byte semestre;
     private String contrasenia;
     private Long idUsuario;
     private Long idCarrera;

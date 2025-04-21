@@ -1,5 +1,6 @@
 package co.ufps.edu.backend.controller;
 
+import co.ufps.edu.backend.dto.EstudianteDTO;
 import co.ufps.edu.backend.model.Estudiante;
 import co.ufps.edu.backend.service.EstudianteService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class EstudianteController {
     }
 
     @PostMapping
-    public Estudiante createEstudiante(@RequestBody Estudiante estudiante) {
+    public Estudiante createEstudiante(@RequestBody EstudianteDTO estudiante) {
         return estudianteService.createEstudiante(estudiante);
     }
 
