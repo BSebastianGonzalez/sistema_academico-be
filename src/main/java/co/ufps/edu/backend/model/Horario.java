@@ -17,10 +17,13 @@ public class Horario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipo;
-    private String dia;
+    private TipoHorario tipo;
+    private DiaSemana dia;
     private LocalTime horaInicio;
     private LocalTime horaFin;
+
+    private int capacidadRequerida;
+    private String recursosNecesarios;
 
     @ManyToOne
     @JoinColumn(name = "id_curso", nullable = false)
@@ -30,4 +33,7 @@ public class Horario {
     @JoinColumn(name = "id_aula", nullable = false)
     private Aula aula;
 
+    @ManyToOne
+    @JoinColumn(name = "id_profesor")
+    private Profesor profesor;
 }
