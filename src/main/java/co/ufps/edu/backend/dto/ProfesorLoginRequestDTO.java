@@ -4,14 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdministradorDTO {
-    private String departamento;
-    private byte nivelAcceso;
+public class ProfesorLoginRequestDTO {
+    private String correo;
     private String contrasenia;
-    private Long idUsuario;
 }
