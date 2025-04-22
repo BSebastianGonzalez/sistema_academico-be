@@ -1,6 +1,8 @@
 package co.ufps.edu.backend.controller;
 
 import co.ufps.edu.backend.dto.EstudianteDTO;
+import co.ufps.edu.backend.dto.EstudianteLoginRequestDTO;
+import co.ufps.edu.backend.dto.EstudianteLoginResponseDTO;
 import co.ufps.edu.backend.model.Estudiante;
 import co.ufps.edu.backend.service.EstudianteService;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +48,25 @@ public class EstudianteController {
     public ResponseEntity<Void> deleteEstudiante(@PathVariable Long id) {
         estudianteService.deleteEstudiante(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/desactivar/{id}")
+    public ResponseEntity<Estudiante> desactivarEstudiante(@PathVariable Long id) {
+        try {
+            Estudiante updatedEstudiante = estudianteService.desactivarEstudiante(id);
+            return ResponseEntity.ok(updatedEstudiante);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<EstudianteLoginResponseDTO> login(@RequestBody EstudianteLoginRequestDTO request) {
+        EstudianteLoginResponseDTO response = estudianteService.loginEstudiante(
+                request.getId(),
+                request.getCorreo(),
+                request.getContrasenia()
+        );
+        return ResponseEntity.ok(response);
     }
 }
