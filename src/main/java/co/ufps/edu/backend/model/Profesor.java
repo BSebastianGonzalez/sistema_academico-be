@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,9 +17,8 @@ import java.util.Objects;
 public class Profesor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String nombre;
     private String correo;
     private String contrasenia;
     private Date ultimoAcceso;
@@ -33,4 +33,12 @@ public class Profesor {
     @JoinColumn(name = "id_carrera")
     @JsonManagedReference
     private Carrera carrera;
+
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Curso> cursos;
+
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Evaluacion> evaluaciones;
 }
