@@ -5,6 +5,7 @@ import co.ufps.edu.backend.dto.EstudianteLoginResponseDTO;
 import co.ufps.edu.backend.model.Carrera;
 import co.ufps.edu.backend.model.Estudiante;
 import co.ufps.edu.backend.model.Usuario;
+import co.ufps.edu.backend.repository.CarreraRepository;
 import co.ufps.edu.backend.repository.EstudianteRepository;
 import co.ufps.edu.backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,9 @@ import java.util.Optional;
 public class EstudianteService {
     @Autowired
     private final EstudianteRepository estudianteRepository;
+    @Autowired
     private final UsuarioRepository usuarioRepository;
+    @Autowired
     private final CarreraRepository carreraRepository;
 
     public List<Estudiante> getAllEstudiantes() {
