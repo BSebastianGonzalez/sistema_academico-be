@@ -1,6 +1,7 @@
 package co.ufps.edu.backend.service;
 
 import co.ufps.edu.backend.dto.EstudianteDTO;
+import co.ufps.edu.backend.dto.EstudianteLoginResponseDTO;
 import co.ufps.edu.backend.model.Carrera;
 import co.ufps.edu.backend.model.Estudiante;
 import co.ufps.edu.backend.model.Usuario;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,5 +76,36 @@ public class EstudianteService {
 
     public void deleteEstudiante(Long id) {
         estudianteRepository.deleteById(id);
+    }
+
+    public Estudiante desactivarEstudiante(Long id) {
+        Estudiante estudiante = estudianteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+        estudiante.setActivo(false);
+        return estudianteRepository.save(estudiante);
+    }
+
+    public EstudianteLoginResponseDTO loginEstudiante(Long id, String correo, String contrasenia) {
+        Optional<Estudiante> estudianteOptional = estudianteRepository.findById(id);
+
+        if (estudianteOptional.isEmpty()) {
+            return new EstudianteLoginResponseDTO(false, "Código de estudiante incorrecto", null);
+        }
+
+        Estudiante estudiante = estudianteOptional.get();
+
+        if (!estudiante.getCorreo().equals(correo)) {
+            return new EstudianteLoginResponseDTO(false, "Correo electrónico incorrecto", null);
+        }
+
+        if (!estudiante.getContrasenia().equals(contrasenia)) {
+            return new EstudianteLoginResponseDTO(false, "Contraseña incorrecta", null);
+        }
+
+        estudiante.setUltimoAcceso(new Date());
+        estudianteRepository.save(estudiante);
+
+        String horaAcceso = "Hora de inicio de sesión: " + estudiante.getUltimoAcceso();
+        return new EstudianteLoginResponseDTO(true, "Inicio de sesión exitoso", horaAcceso);
     }
 }
