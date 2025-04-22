@@ -35,7 +35,6 @@ public class EstudianteService {
     public Estudiante createEstudiante(EstudianteDTO estudianteDTO) {
         Estudiante estudiante = new Estudiante();
 
-        //Creando codigo de estudiante
         Usuario usuario = usuarioRepository.findById(estudianteDTO.getIdUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Carrera carrera = carreraRepository.findById(estudianteDTO.getIdCarrera())
@@ -44,7 +43,6 @@ public class EstudianteService {
         Long cantidadEstudiantes = estudianteRepository.countByCarrera(carrera);
         Long id = (codCarrera * 10000) + (cantidadEstudiantes + 1);
 
-        //Creando correo
         String apellido1 = usuario.getApellido1();
         String apellido2 = usuario.getApellido2();
         String nombre1 = usuario.getNombre1().toLowerCase();

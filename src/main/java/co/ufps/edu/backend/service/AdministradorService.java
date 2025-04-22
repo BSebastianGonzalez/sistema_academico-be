@@ -82,6 +82,7 @@ public class AdministradorService {
             if (admin.getContrasenia().equals(contrasenia)) {
                 admin.setUltimoAcceso(new Date());
                 String horaAcceso = "Hora de inicio de sesion: " + admin.getUltimoAcceso();
+                administradorRepository.save(admin);
                 return new AdminLoginResponseDTO(true, "Inicio de sesión exitoso", horaAcceso);
             } else {
                 return new AdminLoginResponseDTO(false, "Contraseña incorrecta", null);
