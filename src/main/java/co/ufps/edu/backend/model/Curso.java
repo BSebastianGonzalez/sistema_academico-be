@@ -24,15 +24,15 @@ public class Curso {
     private PeriodoAcademico periodoAcademico;
 
 
-    private short cupoMaximo;
-    private short cupoActual = 0;
+    private int cupoMaximo;
+    private int cupoActual = 0;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "asignatura", nullable = false)
+    @JoinColumn(name = "id_asignatura", nullable = false)
     private Asignatura asignatura;
 
     @ManyToOne
-    @JoinColumn(name = "clase_id", nullable = false)
+    @JoinColumn(name = "id_clase", nullable = false)
     private SesionClase clase;
 
     @ManyToMany

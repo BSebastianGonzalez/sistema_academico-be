@@ -1,5 +1,8 @@
 package co.ufps.edu.backend.controller;
 
+import co.ufps.edu.backend.dto.AdministradorDTO;
+import co.ufps.edu.backend.dto.CursoDTO;
+import co.ufps.edu.backend.model.Administrador;
 import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.model.Curso;
 import co.ufps.edu.backend.service.CursoService;
@@ -34,16 +37,9 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crearCurso(@RequestBody Curso curso) {
-        try {
-            Curso creado = cursoService.crearCurso(curso);
-            return ResponseEntity.status(HttpStatus.CREATED).body(creado);
-        } catch (EntityNotFoundException | IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
-        }
+    public Curso crearCurso(@RequestBody CursoDTO curso) {
+        return cursoService.crearCurso(curso);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @Valid @RequestBody Curso cursoDetails) {

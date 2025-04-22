@@ -21,7 +21,9 @@ import java.util.Optional;
 public class EstudianteService {
     @Autowired
     private final EstudianteRepository estudianteRepository;
+    @Autowired
     private final UsuarioRepository usuarioRepository;
+    @Autowired
     private final CarreraRepository carreraRepository;
 
     public List<Estudiante> getAllEstudiantes() {

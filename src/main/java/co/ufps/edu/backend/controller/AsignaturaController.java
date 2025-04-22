@@ -1,15 +1,19 @@
 package co.ufps.edu.backend.controller;
 
 
+import co.ufps.edu.backend.dto.AsignaturaDTO;
 import co.ufps.edu.backend.model.Asignatura;
-import co.ufps.edu.backend.repository.AsignaturaRepository;
 import co.ufps.edu.backend.service.AsignaturaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/asignaturas")
@@ -24,6 +28,7 @@ public class AsignaturaController {
         return asignaturaService.obtenerTodasLasAsignaturas();
     }
 
+    /*
     //Obtener Asignatura por Id
     @GetMapping("/{id}")
     public ResponseEntity<Asignatura> obtenerAsignaturaPorId(@PathVariable Long id) {
@@ -31,7 +36,8 @@ public class AsignaturaController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+     */
+    
     //Obtener Asignatura por Codigo
     @GetMapping("/codigo/{codigo}")
     public ResponseEntity<Asignatura> obtenerAsignaturaPorCodigo(@PathVariable String codigo) {
@@ -50,9 +56,8 @@ public class AsignaturaController {
 
     // Crear Asignatura
     @PostMapping
-    public Asignatura crearAsignatura(@RequestBody Asignatura asignatura) {
-        Asignatura nuevaAsignatura = asignaturaService.crearAsignatura(asignatura);
-        return asignaturaService.crearAsignatura(nuevaAsignatura);
+    public Asignatura crearAsignatura(@RequestBody AsignaturaDTO asignaturaDTO) {
+        return asignaturaService.crearAsignatura(asignaturaDTO);
     }
 
     // Actualizar Asignatura
@@ -71,6 +76,32 @@ public class AsignaturaController {
     public ResponseEntity<Void> eliminarAsignatura(@PathVariable String codigo) {
         asignaturaService.eliminarAsignatura(codigo);
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{codigo}/validar-prerrequisitos")
+    public ResponseEntity<?> validarPrerrequisitos(
+            @PathVariable String codigo,
+            @RequestParam(required = false) Set<String> asignaturasAprobadas,
+            @RequestParam(required = false) Integer creditosAcumulados
+    ) {
+        try {
+            boolean cumple = asignaturaService.validarPrerrequisitos(
+                    codigo,
+                    asignaturasAprobadas != null ? asignaturasAprobadas : Collections.emptySet(),
+                    creditosAcumulados != null ? creditosAcumulados : 0
+            );
+
+            return ResponseEntity.ok(Map.of(
+                    "cumplePrerrequisitos", cumple,
+                    "asignatura", codigo
+            ));
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", "Error en validación",
+                    "mensaje", e.getMessage()
+            ));
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package co.ufps.edu.backend.service;
 
+import co.ufps.edu.backend.dto.CursoDTO;
 import co.ufps.edu.backend.model.*;
 import co.ufps.edu.backend.repository.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -37,75 +40,29 @@ public class CursoService {
         return cursoRepository.findById(id);
     }
 
-    /*
 
-    public Curso crearCurso(Curso curso, Long asignaturaId, Long periodoId) {
-        Optional<Asignatura> asignaturaOpt = asignaturaRepository.findById(asignaturaId);
-        Optional<PeriodoAcademico> periodoOpt = periodoAcademicoRepository.findById(periodoId);
+    public Curso crearCurso(CursoDTO cursoDTO) {
 
-        if (asignaturaOpt.isPresent() && periodoOpt.isPresent()) {
-            curso.setAsignatura(asignaturaOpt.get());
-            curso.setPeriodoAcademico(periodoOpt.get());
-            return Optional.of(cursoRepository.save(curso));
-        }
-        return Optional.empty();
-    }
-     */
+        Curso curso = new Curso();
 
-    public Curso crearCurso(Curso curso) {
-        // 1. Asignatura por código
+        Asignatura asignatura = asignaturaRepository.findById(cursoDTO.getAsignaturaId())
+                .orElseThrow(() -> new RuntimeException("Asignatura no existe"));
 
-        String codigo = curso.getAsignatura().getCodigo();
+        PeriodoAcademico periodo = periodoAcademicoRepository.findById(cursoDTO.getPeriodoAcademicoId())
+                .orElseThrow(() -> new RuntimeException("Periodo no existe"));
 
-        Asignatura asignatura = asignaturaRepository.findByCodigo(codigo)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Asignatura " + codigo + " no encontrada"));
-
-        // 2. PeriodoAcademico por nombre
-        String nombrePeriodo = curso.getPeriodoAcademico().getNombre();
-
-        PeriodoAcademico periodo = periodoAcademicoRepository.findByNombre(nombrePeriodo)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "PeriodoAcademico " + nombrePeriodo + " no encontrado"));
-
-        // 3. Profesor por nombre (usamos el primero de la colección)
-        if (curso.getProfesores().isEmpty()) {
-            throw new IllegalArgumentException("Debe especificar al menos un profesor");
-        }
-        String nombreProf = curso.getProfesores().iterator().next().getNombre();
-        Profesor profesor = profesorRepository.findByNombre(nombreProf)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Profesor " + nombreProf + " no encontrado"));
-
-        // 4. Setear relaciones y valores
         curso.setAsignatura(asignatura);
         curso.setPeriodoAcademico(periodo);
+        curso.setCupoMaximo(cursoDTO.getCupoMaximo());
         curso.setCupoActual((short) 0);
 
-        curso.getProfesores().clear();
-        curso.getProfesores().add(profesor);
+        Set<Profesor> profesores = new HashSet<>(profesorRepository.findAllById(cursoDTO.getProfesoresIds()));
+
+        curso.setProfesores(profesores);
 
         // 5. Guardar
         return cursoRepository.save(curso);
     }
-
-    /*
-    public Curso crearCurso(Curso curso) {
-        // Validar relaciones antes de guardar (ejemplo básico)
-        if (curso.getAsignatura() == null || curso.getPeriodoAcademico() == null) {
-            throw new IllegalArgumentException("Datos incompletos para crear el curso");
-        }
-        return cursoRepository.save(curso);
-    }
-     */
-
-    /*
-    public Curso crearCurso(Curso curso) {
-        Asignatura asignatura = asignaturaService.obtenerAsignaturaPorId(curso.getAsignatura().getCodigo());
-        curso.setAsignatura(asignatura);
-        return cursoRepository.save(curso);
-    }
-    */
 
     public Curso actualizarCurso(Long id, Curso cursoActualizado) {
         return cursoRepository.findById(id).map(curso -> {
@@ -118,20 +75,10 @@ public class CursoService {
         }).orElseThrow(() -> new RuntimeException("Curso no encontrado"));
     }
 
-    public boolean eliminarCurso(Long id) {
-        return cursoRepository.findById(id)
-                .map(curso -> {
-                    cursoRepository.delete(curso);
-                    return true;
-                })
-                .orElse(false);
-    }
 
-    /*
     public void eliminarCurso(Long id) {
         cursoRepository.deleteById(id);
     }
-     */
 
     /*
     public boolean asignarProfesor(Long cursoId, Long profesorId) {
