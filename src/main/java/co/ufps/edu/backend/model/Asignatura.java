@@ -19,6 +19,7 @@ import java.util.Set;
 public class Asignatura {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String codigo;//  1155401 es uno por ejemplo
