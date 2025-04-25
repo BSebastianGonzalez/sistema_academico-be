@@ -2,13 +2,9 @@ package co.ufps.edu.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Data
@@ -25,7 +21,7 @@ public class Profesor {
     private boolean activo;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "usuario_id")
     @JsonManagedReference
     private Usuario usuario;
 
@@ -34,9 +30,11 @@ public class Profesor {
     @JsonManagedReference
     private Carrera carrera;
 
-    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "profesores")
     @JsonManagedReference
-    private List<Curso> cursos;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Curso> cursos = new HashSet<>();
 
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

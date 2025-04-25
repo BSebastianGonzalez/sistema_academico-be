@@ -27,6 +27,7 @@ public class Usuario {
     private Date fechaNacimiento;
     private String direccion;
     private long telefono;
+    private boolean activo = true;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

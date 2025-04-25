@@ -19,6 +19,7 @@ public class Carrera {
 
     @Id
     private Long id;
+    private String codigo;
     private String nombre;
 
     @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, orphanRemoval = true)

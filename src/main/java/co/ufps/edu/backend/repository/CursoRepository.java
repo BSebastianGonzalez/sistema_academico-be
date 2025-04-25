@@ -17,5 +17,8 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
     List<Curso> findByPeriodoAcademico(PeriodoAcademico periodoAcademico);
     List<Curso> findByProfesores(Profesor profesor);
     List<Curso> findByAsignaturaAndPeriodoAcademico(Asignatura asignatura, PeriodoAcademico periodoAcademico);
-    List<Curso> findByCupoActualLessThanCupoMaximo();
+    List<Curso> findByCupoActualLessThan(int cupoMaximo);
+
+    @Query("SELECT c FROM Curso c WHERE c.cupoActual < c.cupoMaximo")
+    List<Curso> findCursosConCuposDisponibles();
 }
