@@ -11,11 +11,8 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReporteUsoRecursos {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@PrimaryKeyJoinColumn(name = "reporte_id")
+public class ReporteUsoRecursos extends Reporte {
 
     @ManyToOne
     @JoinColumn(name = "periodo_id")
@@ -27,5 +24,5 @@ public class ReporteUsoRecursos {
 
     private float tasaUtilizacion;
 
-
+    private int totalUsos;
 }
