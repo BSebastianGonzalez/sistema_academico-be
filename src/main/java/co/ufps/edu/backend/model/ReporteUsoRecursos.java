@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@PrimaryKeyJoinColumn(name = "reporte_id")
 public class ReporteUsoRecursos extends Reporte {
 
     @ManyToOne
@@ -25,4 +25,10 @@ public class ReporteUsoRecursos extends Reporte {
     private float tasaUtilizacion;
 
     private int totalUsos;
+
+    @ElementCollection
+    @MapKeyColumn(name = "recurso_nombre")
+    @Column(name = "total_usos")
+    @CollectionTable(name = "uso_recursos_top", joinColumns = @JoinColumn(name = "reporte_id"))
+    private Map<String, Integer> topRecursosUtilizados;
 }

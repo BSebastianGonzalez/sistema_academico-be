@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@PrimaryKeyJoinColumn(name = "reporte_id")
 public class ReporteAsistencia extends Reporte {
 
     @ManyToOne
@@ -25,5 +25,9 @@ public class ReporteAsistencia extends Reporte {
     private float porcentajeAsistenciaPromedio;
 
     private int totalEstudiantes;
+
+    @ElementCollection
+    @CollectionTable(name = "asistencia_semanas", joinColumns = @JoinColumn(name = "reporte_id"))
+    private List<Float> porcentajePorSemana;
 
 }

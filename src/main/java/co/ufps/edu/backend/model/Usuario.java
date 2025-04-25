@@ -17,7 +17,7 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    private Long id;
+    private long id;
     private TipoDocumento tipoDocumento;
     private String nombre1;
     private String nombre2;
