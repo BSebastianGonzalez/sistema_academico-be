@@ -22,7 +22,7 @@ public class Curso {
     @ManyToOne(optional = false)
     @JoinColumn(name = "periodo_academico_id", nullable = false)
     private PeriodoAcademico periodoAcademico;
-    
+
     private int cupoMaximo;
     private int cupoActual = 0;
 

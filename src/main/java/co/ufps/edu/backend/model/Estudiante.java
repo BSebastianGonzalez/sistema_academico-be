@@ -25,6 +25,7 @@ public class Estudiante {
     private String correo;
     private String contrasenia;
     private Date ultimoAcceso;
+    private GeneroEstudiante genero;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
