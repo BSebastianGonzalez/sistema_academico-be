@@ -1,5 +1,7 @@
 package co.ufps.edu.backend.service;
 
+import co.ufps.edu.backend.dto.CursoDisponibleDTO;
+import co.ufps.edu.backend.dto.InscripcionRequest;
 import co.ufps.edu.backend.exception.ConflictException;
 import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.model.Curso;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,45 +37,47 @@ public class InscripcionService {
     private final AsignaturaRepository asignaturaRepository;
 
 
-    public Inscripcion inscribirEstudiante(Long estudianteId, Long cursoId) {
-        // Validar existencia
-        Estudiante estudiante = estudianteRepository.findById(estudianteId)
+    public void realizarInscripcion(InscripcionRequest request) {
+        Estudiante estudiante = estudianteRepository.findById(request.getEstudianteId())
                 .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
-        Curso curso = cursoRepository.findById(cursoId)
+
+        Curso curso = cursoRepository.findById(request.getCursoId())
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
 
-        // Validar cupo
+        // Validar cupos
         if (curso.getCupoActual() >= curso.getCupoMaximo()) {
-            throw new ConflictException("El curso no tiene cupos disponibles");
+            throw new RuntimeException("Cupo lleno para este curso");
         }
 
         // Validar prerrequisitos
-        Asignatura asignatura = curso.getAsignatura();
-        for (Asignatura prerrequisito : asignatura.getPrerequisitos()) {
-            List<Inscripcion> aprobaciones = inscripcionRepository.findByEstudianteAndCursoAsignaturaAndEstado(
-                    estudiante,
-                    prerrequisito,
-                    "APROBADO"
-            );
-            if (aprobaciones.isEmpty()) {
-                throw new ConflictException("Prerrequisito no cumplido: " + prerrequisito.getNombre());
-            }
-        }
+        validarPrerrequisitos(estudiante, curso.getAsignatura());
 
         // Crear inscripción
-        Inscripcion inscripcion = new Inscripcion();
-        inscripcion.setEstudiante(estudiante);
-        inscripcion.setCurso(curso);
-        inscripcion.setEstado("INSCRITO");
-        inscripcion.setFechaInscripcion(new Date());
+        Inscripcion nuevaInscripcion = new Inscripcion();
+        nuevaInscripcion.setFechaInscripcion(new Date());
+        nuevaInscripcion.setEstado("ACTIVA");
+        nuevaInscripcion.setEstudiante(estudiante);
+        nuevaInscripcion.setCurso(curso);
 
         // Actualizar cupo
         curso.setCupoActual(curso.getCupoActual() + 1);
         cursoRepository.save(curso);
 
-        return inscripcionRepository.save(inscripcion);
+        inscripcionRepository.save(nuevaInscripcion);
     }
 
+    private void validarPrerrequisitos(Estudiante estudiante, Asignatura asignatura) {
+        Set<Asignatura> asignaturasAprobadas = estudiante.getCalificaciones().stream()
+                .filter(c -> c.getNota() >= 3.0)
+                .map(c -> c.getEvaluacion().getCurso().getAsignatura())
+                .collect(Collectors.toSet());
+
+        if (!asignaturasAprobadas.containsAll(asignatura.getPrerequisitos())) {
+            throw new RuntimeException("No cumple con los prerrequisitos");
+        }
+    }
+
+    /*
     public void cancelarInscripcion(Long inscripcionId) {
         Inscripcion inscripcion = inscripcionRepository.findById(inscripcionId)
                 .orElseThrow(() -> new RuntimeException("Inscripción no encontrada"));
@@ -88,6 +94,22 @@ public class InscripcionService {
         // Cancelar
         inscripcion.setEstado("CANCELADO");
         inscripcionRepository.save(inscripcion);
+    }
+
+     */
+
+    public List<CursoDisponibleDTO> obtenerCursosDisponibles() {
+        return cursoRepository.findAll().stream()
+                .map(curso -> new CursoDisponibleDTO(
+                        curso.getId(),
+                        curso.getAsignatura().getNombre(),
+                        curso.getAsignatura().getCodigo(),
+                        curso.getCupoMaximo() - curso.getCupoActual(),
+                        curso.getAsignatura().getPrerequisitos().stream()
+                                .map(Asignatura::getCodigo)
+                                .collect(Collectors.toSet())
+                ))
+                .toList();
     }
 
 
