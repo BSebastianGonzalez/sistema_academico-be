@@ -29,7 +29,7 @@ public class Evaluacion {
     private Profesor profesor;
 
     @ManyToOne
-    @JoinColumn(name = "curso_id")
+    @JoinColumn(name = "id_curso")
     private Curso curso;
 
     @ManyToOne

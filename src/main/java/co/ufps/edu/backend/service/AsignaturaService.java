@@ -30,6 +30,11 @@ public class AsignaturaService {
         return asignaturaRepository.findAll();
     }
 
+    //Obtener Asignatura por Id
+    public Optional<Asignatura> obtenerAsignaturaPorId(Long id) {
+        return asignaturaRepository.findById(id);
+    }
+
     //Obtener Asignatura por Codigo
     public Optional<Asignatura> obtenerAsignaturaPorCodigo(String codigo) {
         return asignaturaRepository.findByCodigo(codigo);

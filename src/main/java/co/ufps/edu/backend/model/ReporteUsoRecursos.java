@@ -5,17 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReporteUsoRecursos {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ReporteUsoRecursos extends Reporte {
 
     @ManyToOne
     @JoinColumn(name = "periodo_id")
@@ -27,5 +24,11 @@ public class ReporteUsoRecursos {
 
     private float tasaUtilizacion;
 
+    private int totalUsos;
 
+    @ElementCollection
+    @MapKeyColumn(name = "recurso_nombre")
+    @Column(name = "total_usos")
+    @CollectionTable(name = "uso_recursos_top", joinColumns = @JoinColumn(name = "reporte_id"))
+    private Map<String, Integer> topRecursosUtilizados;
 }
