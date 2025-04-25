@@ -11,9 +11,15 @@ import java.util.List;
 @NoArgsConstructor
 public class CursoDTO {
 
-    private Long id;
-    private Long periodoAcademicoId;
-    private Long asignaturaId;
-    private Integer cupoMaximo;
+    private long id;
+    private long periodoAcademicoId;
+    private long asignaturaId;
+
+    private int cupoMaximo;
     private List<Long> profesoresIds;
+    private List<String> nombresCompletosProfesores;
+
+    private String nombreCompletoProfesor; // Opcional si se usa profesorId
+    private Long profesorId;
+
 }

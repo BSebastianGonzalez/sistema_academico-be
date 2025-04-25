@@ -37,7 +37,7 @@ public class AsignaturaService {
 
     //Crear Asignatura
     public Asignatura crearAsignatura(AsignaturaDTO asignaturaDTO) {
-        Carrera carrera = carreraRepository.findById(asignaturaDTO.getCarreraId())
+        Carrera carrera = carreraRepository.findByCodigo(asignaturaDTO.getCodigoCarrera())
                 .orElseThrow(() -> new RuntimeException("Carrera no encontrada"));
 
 

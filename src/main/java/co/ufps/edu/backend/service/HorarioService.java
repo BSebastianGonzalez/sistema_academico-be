@@ -105,6 +105,7 @@ public class HorarioService {
         }
     }
 
+
     public List<Horario> sugerirHorarioOptimo(Long aulaId, DiaSemana dia) {
         Aula aula = aulaRepository.findById(aulaId)
                 .orElseThrow(() -> new RuntimeException("Aula no encontrada"));
@@ -126,6 +127,7 @@ public class HorarioService {
 
         return sugerencias;
     }
+
 
 
 

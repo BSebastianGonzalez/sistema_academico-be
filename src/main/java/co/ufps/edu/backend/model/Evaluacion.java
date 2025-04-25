@@ -25,8 +25,8 @@ public class Evaluacion {
     private String tipo;
 
     @ManyToOne
-    @JoinColumn(name = "creador_id")
-    private Profesor creador;
+    @JoinColumn(name = "profesor_id")
+    private Profesor profesor;
 
     @ManyToOne
     @JoinColumn(name = "curso_id")

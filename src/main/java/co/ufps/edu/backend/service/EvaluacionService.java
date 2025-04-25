@@ -35,7 +35,7 @@ public class EvaluacionService {
             evaluacion.setFechaAplicacion(evaluacionDetails.getFechaAplicacion());
             evaluacion.setPorcentaje(evaluacionDetails.getPorcentaje());
             evaluacion.setTipo(evaluacionDetails.getTipo());
-            evaluacion.setCreador(evaluacionDetails.getCreador());
+            evaluacion.setProfesor(evaluacionDetails.getProfesor());
             evaluacion.setCurso(evaluacionDetails.getCurso());
             evaluacion.setCalificacion(evaluacionDetails.getCalificacion());
             return evaluacionRepository.save(evaluacion);

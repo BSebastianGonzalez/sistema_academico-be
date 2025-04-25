@@ -2,6 +2,7 @@ package co.ufps.edu.backend.controller;
 
 import co.ufps.edu.backend.dto.AdministradorDTO;
 import co.ufps.edu.backend.dto.CursoDTO;
+import co.ufps.edu.backend.dto.CursoResponseDTO;
 import co.ufps.edu.backend.model.Administrador;
 import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.model.Curso;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/api/cursos")
 @RequiredArgsConstructor
 public class CursoController {
 
@@ -37,8 +38,13 @@ public class CursoController {
     }
 
     @PostMapping
-    public Curso crearCurso(@RequestBody CursoDTO curso) {
-        return cursoService.crearCurso(curso);
+    public ResponseEntity<Curso> crearCurso(@RequestBody CursoDTO cursoDTO) {
+        try {
+            Curso nuevoCurso = cursoService.crearCurso(cursoDTO);
+            return new ResponseEntity<>(nuevoCurso, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")
@@ -57,6 +63,22 @@ public class CursoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{cursoId}/profesores/{profesorId}")
+    public ResponseEntity<Curso> asignarProfesor(
+            @PathVariable Long cursoId,
+            @PathVariable Long profesorId
+    ) {
+        return ResponseEntity.ok(cursoService.asignarProfesor(cursoId, profesorId));
+    }
+
+    @DeleteMapping("/{cursoId}/profesores/{profesorId}")
+    public ResponseEntity<Void> removerProfesor(
+            @PathVariable Long cursoId,
+            @PathVariable Long profesorId
+    ) {
+        cursoService.removerProfesor(cursoId, profesorId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

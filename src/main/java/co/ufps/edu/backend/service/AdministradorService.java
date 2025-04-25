@@ -6,6 +6,7 @@ import co.ufps.edu.backend.model.Administrador;
 import co.ufps.edu.backend.model.Usuario;
 import co.ufps.edu.backend.repository.AdministradorRepository;
 import co.ufps.edu.backend.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class AdministradorService {
         return administradorRepository.findById(id);
     }
 
+    @Transactional
     public Administrador createAdministrador(AdministradorDTO administradorDTO) {
         Administrador administrador = new Administrador();
         Usuario usuario = usuarioRepository.findById(administradorDTO.getIdUsuario())
@@ -65,6 +67,10 @@ public class AdministradorService {
 
     public void deleteAdministrador(Long id) {
         administradorRepository.deleteById(id);
+    }
+
+    public Optional<Usuario> buscarUsuarioActivoPorCorreo(String correo) {
+        return usuarioRepository.findByCorreoAndActivoTrue(correo);
     }
 
     public Administrador desactivarAdministrador(Long id) {

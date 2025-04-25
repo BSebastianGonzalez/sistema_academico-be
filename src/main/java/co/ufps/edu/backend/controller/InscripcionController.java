@@ -1,13 +1,8 @@
 package co.ufps.edu.backend.controller;
 
-import co.ufps.edu.backend.dto.AdministradorDTO;
-import co.ufps.edu.backend.exception.ConflictException;
-import co.ufps.edu.backend.model.Administrador;
 import co.ufps.edu.backend.model.Inscripcion;
-import co.ufps.edu.backend.repository.InscripcionRepository;
 import co.ufps.edu.backend.service.InscripcionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
