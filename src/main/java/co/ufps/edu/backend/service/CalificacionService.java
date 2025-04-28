@@ -42,8 +42,8 @@ public class CalificacionService {
         calificacionRepository.deleteById(id);
     }
 
-    public List<Calificacion> getCalificacionesByEstudiante(int estudianteId) {
-        return calificacionRepository.findByEstudiante_Id(estudianteId);
+    public List<Calificacion> getCalificacionesByEstudiante(Long estudianteId) {
+        return calificacionRepository.findByEstudianteId(estudianteId);
     }
 }
 
