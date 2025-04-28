@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CalificacionRepository extends JpaRepository<Calificacion, Long> {
-    List<Calificacion> findByEstudiante_Id(int estudianteId);
+    List<Calificacion> findByEstudianteId(Long estudianteId);
 
     @Query("SELECT c FROM Calificacion c " +
             "WHERE c.evaluacion.curso = :curso " +
