@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/administradores")
 @RequiredArgsConstructor
 public class AdministradorController {
     private final AdministradorService administradorService;

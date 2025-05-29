@@ -4,7 +4,6 @@ package co.ufps.edu.backend.controller;
 import co.ufps.edu.backend.dto.AsignaturaDTO;
 import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.service.AsignaturaService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

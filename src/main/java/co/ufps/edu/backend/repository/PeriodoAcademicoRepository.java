@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface PeriodoAcademicoRepository extends JpaRepository<PeriodoAcademico, Long> {
 
-    Optional<PeriodoAcademico> findByNombre(String nombre);
 }

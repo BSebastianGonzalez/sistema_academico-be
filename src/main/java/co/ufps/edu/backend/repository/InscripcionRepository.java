@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface InscripcionRepository extends JpaRepository<Inscripcion, Long> {
 
-    List<Inscripcion> findByEstudianteAndCurso(Estudiante estudiante, Curso curso);
     List<Inscripcion> findByEstudianteAndCursoAsignaturaAndEstado(Estudiante estudiante, Asignatura asignatura, String estado);
 }
