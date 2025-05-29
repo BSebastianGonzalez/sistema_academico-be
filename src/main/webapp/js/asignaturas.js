@@ -1,4 +1,4 @@
-const API_ASIGN = 'http://localhost:8080/api/asignaturas';
+const API_ASIGN = 'http://localhost:8080/asignaturas';
 
 document.addEventListener('DOMContentLoaded', fetchAsign);
 

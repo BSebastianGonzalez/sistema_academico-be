@@ -1,4 +1,4 @@
-const API = 'http://localhost:8080/api/cursos';
+const API = 'http://localhost:8080/cursos';
 
 document.addEventListener('DOMContentLoaded', fetchCursos);
 
