@@ -8,7 +8,6 @@ import co.ufps.edu.backend.model.Asignatura;
 import co.ufps.edu.backend.model.Curso;
 import co.ufps.edu.backend.service.CursoService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +47,7 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @Valid @RequestBody Curso cursoDetails) {
+    public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @RequestBody Curso cursoDetails) {
         try {
             Curso actualizarCurso = cursoService.actualizarCurso(id, cursoDetails);
             return ResponseEntity.ok(actualizarCurso);

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping
+@RequestMapping("/inscripciones")
 @RequiredArgsConstructor
 public class InscripcionController {
 

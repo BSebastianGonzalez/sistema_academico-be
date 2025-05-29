@@ -49,18 +49,8 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
             @Param("dia") DiaSemana dia
     );
 
-    // 4) Exámenes en un aula y día (usa el enum TipoHorario)
-    @Query("SELECT h FROM Horario h " +
-            "WHERE h.aula = :aula " +
-            "AND h.dia = :dia " +
-            "AND h.tipo = co.ufps.edu.backend.model.TipoHorario.EXAMEN")
-    List<Horario> findExamenesByAulaAndDia(
-            @Param("aula") Aula aula,
-            @Param("dia") DiaSemana dia
-    );
 
     // 5) Métodos derivados adicionales
-    List<Horario> findByCursoId(Long cursoId);
     List<Horario> findByAulaAndDiaOrderByHoraInicioAsc(Aula aula, DiaSemana dia);
-    List<Horario> findByCurso(Curso curso);
+
 }

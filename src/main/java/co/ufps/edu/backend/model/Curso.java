@@ -1,8 +1,6 @@
 package co.ufps.edu.backend.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.util.HashSet;

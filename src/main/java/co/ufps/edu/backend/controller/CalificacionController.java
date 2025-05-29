@@ -50,7 +50,7 @@ public class CalificacionController {
     }
 
     @GetMapping("/estudiante/{id}")
-    public List<Calificacion> getCalificacionesByEstudiante(@PathVariable int id) {
+    public List<Calificacion> getCalificacionesByEstudiante(@PathVariable Long id) {
         return calificacionService.getCalificacionesByEstudiante(id);
     }
 }
