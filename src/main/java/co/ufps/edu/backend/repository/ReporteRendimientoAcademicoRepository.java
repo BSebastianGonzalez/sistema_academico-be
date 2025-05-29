@@ -9,10 +9,6 @@ import java.util.List;
 
 public interface ReporteRendimientoAcademicoRepository extends JpaRepository<ReporteRendimientoAcademico, Long> {
 
-    List<ReporteRendimientoAcademico> findByCursoId(Long cursoId);
-    List<ReporteRendimientoAcademico> findByPeriodoId(Long periodoId);
-
-    List<ReporteRendimientoAcademico> findByPromedioGeneralGreaterThanEqual(float promedioMinimo);
 
     @Query("SELECT AVG(r.promedioGeneral) FROM ReporteRendimientoAcademico r WHERE r.periodo.id = :periodoId")
     Float findPromedioGeneralByPeriodo(@Param("periodoId") Long periodoId);

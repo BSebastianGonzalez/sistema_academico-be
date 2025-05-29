@@ -19,8 +19,4 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
             "p.usuario.apellido2) = :nombreCompleto")
     Optional<Profesor> findByNombreCompleto(@Param("nombreCompleto") String nombreCompleto);
 
-    // Método alternativo para buscar por ID de usuario
-    @Query("SELECT p FROM Profesor p WHERE p.usuario.id = :usuarioId")
-    Optional<Profesor> findByUsuarioId(@Param("usuarioId") Long usuarioId);
-
 }
