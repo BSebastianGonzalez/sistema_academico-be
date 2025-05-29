@@ -17,6 +17,7 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "periodo_academico_id", nullable = false)
     private PeriodoAcademico periodoAcademico;
