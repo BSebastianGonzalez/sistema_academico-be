@@ -14,7 +14,7 @@
     <script src="/js/docentes/gestionDocentes.js" defer></script>
 </head>
 <body>
-<jsp:include page="/partials/navbar.jsp" />
+<jsp:include page="../partials/navbar.jsp" />
 
 <div class="container mt-4">
     <h2>Gestión de Docentes</h2>
