@@ -94,10 +94,10 @@
                 <p class="mt-4">¿Eres administrador?
                     <a href="${pageContext.request.contextPath}/admin/autenticacion.jsp" class="text-warning">Accede al panel de administración</a>
                 </p>
-                <p class="small">Sistema Académico v2.0 &copy; 2023 - Universidad del Quindío</p>
+                <p class="small">Sistema Académico &copy; 2023 - Universidad/p>
             </div>
         </div>
-    </div>
+    </div
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

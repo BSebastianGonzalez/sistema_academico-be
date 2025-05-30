@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -380,14 +379,25 @@
         <span>Matrícula</span>
       </a>
     </li>
+
+    <li class="menu-item">
+      <a href="${pageContext.request.contextPath}/estudiantes/calificaciones.jsp"
+         class="menu-link ${param.active == 'calificaciones' ? 'active' : ''}"
+         data-target="calificaciones">
+        <i class="fas fa-chart-bar"></i>
+        <span>Calificaciones</span>
+      </a>
+    </li>
+
     <li class="menu-item">
       <a href="${pageContext.request.contextPath}/estudiantes/historialAcademico.jsp" class="menu-link ${param.active == 'historial' ? 'active' : ''}" data-target="historial">
         <i class="fas fa-chart-line"></i>
         <span>Historial Académico</span>
       </a>
     </li>
+
     <li class="menu-item">
-      <a href="${pageContext.request.contextPath}/estudiantes/asistencia.jsp" class="menu-link ${param.active == 'asistencia' ? 'active' : ''}" data-target="asistencia">
+      <a href="${pageContext.request.contextPath}/estudiantes/gestionAsistencia.jsp" class="menu-link ${param.active == 'asistencia' ? 'active' : ''}" data-target="asistencia">
         <i class="fas fa-calendar-check"></i>
         <span>Asistencia</span>
       </a>
@@ -420,6 +430,28 @@
       <div class="card-footer">
         <a href="${pageContext.request.contextPath}/estudiantes/matriculaInscripcion.jsp?active=matricula"
            class="btn btn-module" id="matricula-btn">
+          Acceder
+        </a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <i class="fas fa-chart-bar"></i>
+        </div>
+        <h3 class="card-title">Calificaciones</h3>
+      </div>
+      <div class="card-body">
+        <ul class="module-features">
+          <li><i class="fas fa-check-circle text-success"></i> Ver notas por materia</li>
+          <li><i class="fas fa-check-circle text-success"></i> Consultar evaluaciones</li>
+          <li><i class="fas fa-check-circle text-success"></i> Calcular promedio</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <a href="${pageContext.request.contextPath}/estudiantes/calificaciones.jsp?active=calificaciones"
+           class="btn btn-module" id="calificaciones-btn">
           Acceder
         </a>
       </div>

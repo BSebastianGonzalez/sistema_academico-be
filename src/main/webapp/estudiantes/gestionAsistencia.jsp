@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/asistencia.css">
+
+
 </head>
 <body>
 <jsp:include page="../partials/estudianteHeader.jsp" />
