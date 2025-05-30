@@ -15,7 +15,13 @@ import java.util.List;
 @RequestMapping("/profesores")
 @RequiredArgsConstructor
 public class ProfesorController {
+
     private final ProfesorService profesorService;
+
+    @GetMapping("/index_docentes")
+    public String mostrarVistaDocentes() {
+        return "index_docentes"; // No necesita .jsp
+    }
 
     @GetMapping("/list")
     public List<Profesor> getAllProfesores() {
