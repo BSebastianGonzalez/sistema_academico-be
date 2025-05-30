@@ -1,0 +1,120 @@
+/* Estilos específicos para login de docentes */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    padding: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-header i {
+    font-size: 3.5rem;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.login-header h2 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 0 0.25rem rgba(39, 174, 96, 0.25);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #27ae60 0%, #219653 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #219653 0%, #27ae60 100%);
+    transform: translateY(-2px);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: #27ae60;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.back-link:hover {
+    color: #219653;
+    transform: translateX(-3px);
+}
+
+.back-link i {
+    margin-right: 8px;
+    transition: all 0.3s;
+}
+
+.back-link:hover i {
+    transform: translateX(-3px);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .login-card {
+        border-radius: 10px;
+    }
+
+    .card-body {
+        padding: 25px 20px;
+    }
+
+    .login-header i {
+        font-size: 2.8rem;
+    }
+
+    .login-header h2 {
+        font-size: 1.5rem;
+    }
+}

@@ -15,7 +15,13 @@ import java.util.List;
 @RequestMapping("/estudiantes")
 @RequiredArgsConstructor
 public class EstudianteController {
+
     private final EstudianteService estudianteService;
+
+    @GetMapping("/index_estudiantes")
+    public String mostrarVistaEstudiantes() {
+        return "index_estudiantes"; // No necesita .jsp
+    }
 
     @GetMapping
     public List<Estudiante> getAllEstudiantes() {

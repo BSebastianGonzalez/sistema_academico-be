@@ -1,0 +1,155 @@
+/* Estilos específicos para login de estudiantes */
+/* =============================
+   Estilos mejorados para Login
+   Diseño moderno y responsivo
+   ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Reset y tipografía global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f0f2f5;
+    color: #2c3e50;
+}
+
+/* Contenedor centrado con gradiente animado */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
+}
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Tarjeta de login con sombra suave y bordes redondeados */
+.login-card {
+    width: 100%;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.login-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 32px 28px;
+}
+
+/* Cabecera con icono circular */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.login-header i {
+    font-size: 4rem;
+    color: #3498db;
+    background: #eaf6ff;
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.login-header h2 {
+    margin-top: 16px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #34495e;
+}
+
+/* Grupos de campos con iconos internos */
+.form-group {
+    position: relative;
+    margin-bottom: 22px;
+}
+.form-group i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #95a5a6;
+    font-size: 1.1rem;
+}
+.form-control {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    border: 1.5px solid #d0d3d4;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-control::placeholder {
+    color: #abb2b9;
+}
+.form-control:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 0 0.2rem rgba(41, 128, 185, 0.25);
+    outline: none;
+}
+
+/* Botón principal con gradiente y animación al pasar */
+.btn-primary {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+    transform: translateY(-2px);
+}
+
+/* Enlace de retorno estilizado */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 0.95rem;
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+}
+.back-link i {
+    margin-right: 8px;
+    transition: transform 0.3s;
+}
+.back-link:hover {
+    color: #1f70b5;
+    transform: translateX(-4px);
+}
+.back-link:hover i {
+    transform: translateX(-2px);
+}
+
+/* Responsivo */
+@media (max-width: 576px) {
+    .login-card { max-width: 90%; border-radius: 12px; }
+    .card-body { padding: 24px; }
+    .login-header i { font-size: 3.2rem; padding: 16px; }
+    .login-header h2 { font-size: 1.5rem; }
+    .btn-primary { font-size: 1rem; padding: 12px 0; }
+}
